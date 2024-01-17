@@ -67,7 +67,8 @@ export default () => {
           onBlur={() => { isSendBoxFocus.set(false) }}
           onInput={() => { setInputPrompt(inputRef.value) }}
           onKeyDown={(e) => {
-            e.key === 'Enter' && !e.isComposing && !e.shiftKey && handleSend()
+            if (e.key === 'Enter' && (e.shiftKey || e.metaKey))
+              handleSend()
           }}
           class="h-full w-full absolute inset-0 py-4 px-[calc(max(1.5rem,(100%-48rem)/2))] scroll-pa-4 input-base text-sm"
         />
@@ -83,7 +84,6 @@ export default () => {
           icon="i-carbon-send"
           onClick={handleSend}
           variant={inputPrompt() ? 'primary' : 'normal'}
-          // prefix={t('send.button')}
         />
       </div>
     </div>
